@@ -12,6 +12,11 @@ __global__ void kernel(int* i)
 
 int main(int argc, char* argv[])
 {
+	int deviceId;
+	hipGetDevice(&deviceId);
+	hipDeviceProp_t prop;
+	hipGetDeviceProperties(&prop, deviceId);
+	printf("Using %s\n", prop.name);
 	int* val;
 	hipMalloc(&val, sizeof(int));
 	hipMemcpy(val, &argc, sizeof(int), hipMemcpyHostToDevice);
